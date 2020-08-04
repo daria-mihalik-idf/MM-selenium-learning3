@@ -1,24 +1,48 @@
-import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.Configuration;
+import base.TestBase;
+import org.hamcrest.Description;
 import org.junit.Test;
-import org.openqa.selenium.By;
+import pages.GoogleSearchPage;
+import pages.GoogleSearchResultsPage;
+import ru.yandex.qatools.allure.annotations.Features;
+import ru.yandex.qatools.allure.annotations.Stories;
+import ru.yandex.qatools.allure.annotations.Title;
 
-import static com.codeborne.selenide.Selectors.byText;
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.open;
+@Features("Google Search feature")
+public class SearchTest extends TestBase {
 
-
-public class SearchTest {
-
+    @Title("Google basic search test")
+    @Description("This test searchis for something on Google")
+    @Stories("Success story")
     @Test
     public void SearchTest() {
-        Configuration.browser = "chrome";
-        Configuration.timeout = 10000;
         String searchText = "Selenide";
 
-        open("https://www.google.by/");
-        $(By.name("q")).sendKeys(searchText);
-        $("h3.r a").shouldHave(Condition.text(searchText));
-        $(byText("Some button"));
+        GoogleSearchPage.search(searchText);
+        GoogleSearchResultsPage.verifySearchResult(searchText);
     }
+
+    @Title("Failing Google search Test")
+    @ru.yandex.qatools.allure.annotations.Description("This is a test that fails on purpose")
+    @Stories("Success false")
+    @Test
+    public void failingTest() {
+        GoogleSearchPage.causeFailure();
+
+    }
+
+    @Title("Broken Google search test")
+    @ru.yandex.qatools.allure.annotations.Description("This is a test that searches for nonsence element")
+    @Test
+    public void brokenTest() {
+        GoogleSearchPage.causeBrokenTest();
+    }
+
+    @Title("Pending Google search Test")
+    @ru.yandex.qatools.allure.annotations.Description("This is a test that's currently in development")
+    @Test(enabled = false)
+    @Stories("Success false")
+    public void pendingTest() {
+        //TODO: implement some need google search checks
+    }
+
 }
