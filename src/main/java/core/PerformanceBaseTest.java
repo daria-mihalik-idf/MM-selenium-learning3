@@ -14,16 +14,15 @@ import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.concurrent.TimeUnit;
 
-public class PerformanceTestBase {
+public class PerformanceBaseTest {
 
     protected WebDriver driver;
     private ProxyServer proxy;
     private Har har;
-    private String  testName;
+    private String testName;
 
     @BeforeMethod
     protected void setup(Method method) throws Exception {
-
         testName = method.getName();
         proxy = new ProxyServer(444);
         proxy.start();

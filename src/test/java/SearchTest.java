@@ -11,7 +11,7 @@ import static com.codeborne.selenide.Selenide.open;
 public class SearchTest {
 
     @Test
-    public void SearchTest() {
+    public void searchTest() {
         Configuration.browser = "chrome";
         Configuration.timeout = 10000;
         String searchText = "Selenide";
